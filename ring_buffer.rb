@@ -17,19 +17,19 @@ class RingBuffer
   end
 
   def push(item)
-    @next = @arr.index(nil) if contains_nil?
+    full? ? @oldest = advance_pointer(@oldest) : @next = @arr.index(nil)
 
     @arr[@next] = item
-    advance_next
+    @next = advance_pointer(@next)
     @arr
   end
 
   def pop
     return nil if empty?
 
-    popped = @arr[@last]
-    @arr[@last] = nil
-    advance_last
+    popped = @arr[@oldest]
+    @arr[@oldest] = nil
+    @oldest = advance_pointer(@oldest)
     popped
   end
 
@@ -39,24 +39,11 @@ class RingBuffer
     @arr.all?(&:nil?)
   end
 
-  def contains_nil?
-    @arr.index(nil) ? true : false
+  def full?
+    @arr.none?(&:nil?)
   end
 
-  # TODO: Refactor these into a `#advance_pointer`
-  def advance_next
-    if @next < @capacity - 1
-      @next += 1
-    else
-      @next = 0
-    end
-  end
-
-  def advance_last
-    if @last < @capacity - 1
-      @last += 1
-    else
-      @last = 0
-    end
+  def advance_pointer(pointer)
+    pointer < @capacity - 1 ? pointer + 1 : 0
   end
 end
