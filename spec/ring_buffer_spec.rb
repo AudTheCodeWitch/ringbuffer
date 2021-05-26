@@ -32,21 +32,7 @@ RSpec.describe RingBuffer do
 
     it { is_expected.to be_an(Array) }
 
-    it 'updates @arr' do
-      result
-      expect(ring.instance_variable_get(:@arr)).to eq ['A', nil, nil, nil]
-    end
-
-    it 'increments @next by one' do
-      result
-      expect(ring.instance_variable_get(:@next)).to eq 1
-    end
-
-    context 'with an empty array' do
-      it 'returns the modified array' do
-        expect(result).to eq(['A', nil, nil, nil])
-      end
-    end
+    it { is_expected.to eq(['A', nil, nil, nil])}
 
     context 'with a partially-filled array' do
       before do
