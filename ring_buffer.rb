@@ -23,7 +23,7 @@ class RingBuffer
     end
 
     @arr[@next] = item
-    update_next
+    advance_next
     @arr
   end
 
@@ -32,7 +32,7 @@ class RingBuffer
 
     popped = @arr[@last]
     @arr[@last] = nil
-    update_last
+    advance_last
     popped
   end
 
@@ -46,8 +46,8 @@ class RingBuffer
     @arr.index(nil)
   end
 
-  # TODO: Refactor these into a `#update_pointer`
-  def update_next
+  # TODO: Refactor these into a `#advance_pointer`
+  def advance_next
     if @next < @capacity - 1
       @next += 1
     else
@@ -55,7 +55,7 @@ class RingBuffer
     end
   end
 
-  def update_last
+  def advance_last
     if @last < @capacity - 1
       @last += 1
     else
