@@ -26,4 +26,49 @@ RSpec.describe RingBuffer do
     end
   end
 
+  describe '.push' do
+    subject(:result) { ring.push('A')}
+
+    let(:ring) { described_class.new(capacity: 4)}
+
+    it{ is_expected.to be_an(Array) }
+
+    it 'updates @arr' do
+      result
+      expect(ring.instance_variable_get(:@arr)).to eq ['A', nil, nil, nil]
+    end
+
+    it 'increments @newest by one' do
+      result
+      expect(ring.instance_variable_get(:@next)).to eq 1
+    end
+
+    context 'with an empty array' do
+      it 'returns the modified array' do
+        expect(result).to eq(['A', nil, nil, nil])
+      end
+    end
+
+    context 'with a partially-filled array' do
+      before do
+        ring.instance_variable_set(:@arr, [1, nil, 3, nil])
+      end
+
+      it 'fills the first empty space' do
+        expect(result).to eq([1, "A", 3, nil])
+      end
+    end
+
+    context 'with a full array' do
+      before do
+        ring.instance_variable_set(:@arr, [4, 1, 2, 3])
+        ring.instance_variable_set(:@next, 1)
+      end
+
+      it 'overwrites the oldest space' do
+        expect(result).to eq([4, "A", 2, 3])
+      end
+    end
+  end
+
 end
