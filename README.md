@@ -24,10 +24,12 @@ several opportunities for improvement. Specific areas I would ask for feedback i
 - Naming, especially `@next` and `@last`
 - Test organization. I'm not reusing `subject` as much as I'd like, indicating there is probably a good way to refactor 
 these tests
+- Test structure. `instance_variable_set` isn't ideal, but I used it for the sake of time to create my individual test
+cases. I was also trying to limit the test's dependency on `#push` and `#pop`.
 - Am I missing any edge cases?
 
 ## Potential Next Steps
 1. Solicit feedback/code reviews and implement changes
-2. Explore potential edge cases
+2. Strengthen tests
 3. Update documentation
 4. Package as a gem!
