@@ -21,7 +21,7 @@ especially helpful for envisioning how a linear object (array) could be configur
 
 This exercise was completed using TDD and was a first pass. I'm confident a code review with my peers would reveal
 several opportunities for improvement. Specific areas I would ask for feedback include:
-- Naming, especially `@next` and `@last`
+- Naming, especially `@next` and `@oldest`
 - Test organization. I'm not reusing `subject` as much as I'd like, indicating there is probably a good way to refactor 
 these tests
 - Test structure. `instance_variable_set` isn't ideal, but I used it for the sake of time to create my individual test
