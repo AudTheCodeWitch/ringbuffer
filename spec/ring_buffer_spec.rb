@@ -25,7 +25,7 @@ RSpec.describe RingBuffer do
     end
   end
 
-  describe '.push' do
+  describe '#push' do
     subject(:result) { ring.push('A') }
 
     let(:ring) { described_class.new(capacity: 4) }
@@ -70,7 +70,7 @@ RSpec.describe RingBuffer do
     end
   end
 
-  describe '.pop' do
+  describe '#pop' do
     subject(:result) { ring.pop }
 
     let(:ring) { described_class.new(capacity: 4) }
