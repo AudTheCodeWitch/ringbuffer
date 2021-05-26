@@ -15,12 +15,16 @@ cd ringbuffer
 2. Run the tests with `rspec`
 
 ## Aud's Notes
-The ring buffer was a totally new data structure to me! [Wikipedia](https://en.wikipedia.org/wiki/Circular_buffer) has a
-decent run-down of how it works. The graphics are especially helpful for envisioning how a linear object (array) could 
-be configured in a circular manner.
+The ring buffer was a totally new data structure to me and really fun to learn about! 
+[Wikipedia](https://en.wikipedia.org/wiki/Circular_buffer) has a decent run-down of how it works. The graphics are 
+especially helpful for envisioning how a linear object (array) could be configured in a circular manner.
 
 This exercise was completed using TDD and was a first pass. I'm confident a code review with my peers would reveal
-several opportunities for improvement.
+several opportunities for improvement. Specific areas I would ask for feedback include:
+- Naming, especially `@next` and `@last`
+- Test organization. I'm not reusing `subject` as much as I'd like, indicating there is probably a good way to refactor 
+these tests
+- Am I missing any edge cases?
 
 ## Potential Next Steps
 1. Solicit feedback/code reviews and implement changes
