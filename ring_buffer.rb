@@ -8,12 +8,12 @@
 # Creates a RingBuffer object
 class RingBuffer
   def initialize(capacity:)
+    raise ArgumentError if capacity < 1
+
     @arr = Array.new(capacity)
     @capacity = capacity
     @next = 0
     @last = 0
-
-    raise ArgumentError if capacity < 1
   end
 
   def push(item)
