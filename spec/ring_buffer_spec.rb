@@ -36,7 +36,7 @@ RSpec.describe RingBuffer do
 
     context 'with a partially-filled array' do
       before do
-        ring.instance_variable_set(:@arr, [1, nil, 3, nil])
+        build_ring_buffer_from_array([1, nil, 3, nil])
       end
 
       it 'fills the first empty space' do
@@ -46,8 +46,8 @@ RSpec.describe RingBuffer do
 
     context 'with a full array' do
       before do
-        ring.instance_variable_set(:@arr, [4, 1, 2, 3])
-        ring.instance_variable_set(:@next, 1)
+        build_ring_buffer_from_array([4, 1, 2, 3])
+        set_pointer(pointer: :@next, index: 1)
       end
 
       it 'overwrites the oldest space' do
@@ -61,15 +61,7 @@ RSpec.describe RingBuffer do
 
     let(:ring) { described_class.new(capacity: 4) }
 
-    before do
-      ring.instance_variable_set(:@arr, [1, 2, 3, 4])
-    end
-
     context 'with an empty array' do
-      before do
-        ring.instance_variable_set(:@arr, Array.new(4))
-      end
-
       it 'returns nil' do
         expect(result).to eq(nil)
       end
@@ -77,8 +69,8 @@ RSpec.describe RingBuffer do
 
     context 'with a partially-filled array' do
       before do
-        ring.instance_variable_set(:@arr, [1, 2, nil, 4])
-        ring.instance_variable_set(:@last, 3)
+        build_ring_buffer_from_array([1, 2, nil, 4])
+        set_pointer(pointer: :@last, index: 3)
       end
 
       it 'removes the oldest space' do
@@ -88,14 +80,23 @@ RSpec.describe RingBuffer do
 
     context 'with a full array' do
       before do
-        ring.instance_variable_set(:@arr, [1, 2, 3, 4])
-        ring.instance_variable_set(:@last, 2)
+        build_ring_buffer_from_array([1, 2, 3, 4])
+        set_pointer(pointer: :@last, index: 2)
       end
 
       it 'removes the oldest space' do
         expect(result).to eq(3)
       end
     end
+  end
+
+
+  def build_ring_buffer_from_array(arr)
+    ring.instance_variable_set(:@arr, arr)
+  end
+
+  def set_pointer(pointer:, index:)
+    ring.instance_variable_set(pointer, index)
   end
 end
 # rubocop:enable Metrics/BlockLength
