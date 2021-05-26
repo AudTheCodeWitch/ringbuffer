@@ -41,7 +41,7 @@ RSpec.describe RingBuffer do
       expect(ring.instance_variable_get(:@arr)).to eq ['A', nil, nil, nil]
     end
 
-    it 'increments @newest by one' do
+    it 'increments @next by one' do
       result
       expect(ring.instance_variable_get(:@next)).to eq 1
     end
@@ -97,7 +97,7 @@ RSpec.describe RingBuffer do
         expect(result).to eq(nil)
       end
 
-      it 'does not shift @oldest' do
+      it 'does not shift @last' do
         result
         expect(ring.instance_variable_get(:@last)).to eq 0
       end
