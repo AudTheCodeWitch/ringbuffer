@@ -17,10 +17,7 @@ class RingBuffer
   end
 
   def push(item)
-    if contains_nil?
-      point = @arr.index(nil)
-      point.nil? ? update_last : @next = point
-    end
+    @next = @arr.index(nil) if contains_nil?
 
     @arr[@next] = item
     advance_next
@@ -43,7 +40,7 @@ class RingBuffer
   end
 
   def contains_nil?
-    @arr.index(nil)
+    @arr.index(nil) ? true : false
   end
 
   # TODO: Refactor these into a `#advance_pointer`
