@@ -23,20 +23,38 @@ class RingBuffer
     @arr
   end
 
-end
+  def pop
+    return nil if empty?
+    popped = @arr[@last]
+    @arr[@last] = nil
+    update_last
+    popped
+  end
 
-private
+  private
 
-def has_nil?
-  @arr.index(nil)
-end
+  def empty?
+    @arr.all?(&:nil?)
+  end
 
-# TODO: Refactor these into a `#update_pointer`
-def update_next
-  if @next < @capacity - 1
-    @next += 1
-  else
-    @next = 0
+  def has_nil?
+    @arr.index(nil)
+  end
+
+  # TODO: Refactor these into a `#update_pointer`
+  def update_next
+    if @next < @capacity - 1
+      @next += 1
+    else
+      @next = 0
+    end
+  end
+
+  def update_last
+    if @last < @capacity - 1
+      @last += 1
+    else
+      @last = 0
+    end
   end
 end
-

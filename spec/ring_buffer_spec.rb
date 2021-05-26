@@ -71,4 +71,58 @@ RSpec.describe RingBuffer do
     end
   end
 
+
+  describe '.pop' do
+    subject(:result) { ring.pop }
+
+    let(:ring) { described_class.new(capacity: 4)}
+
+    before do
+      ring.instance_variable_set(:@arr, [1, 2, 3, 4])
+    end
+
+    it{ is_expected.to be_an(Object) }
+
+    it 'updates @arr' do
+      result
+      expect(ring.instance_variable_get(:@arr)).to eq [nil, 2, 3, 4]
+    end
+
+    context 'with an empty array' do
+      before do
+        ring.instance_variable_set(:@arr, [nil, nil, nil, nil])
+      end
+
+      it 'returns nil' do
+        expect(result).to eq(nil)
+      end
+
+      it 'does not shift @oldest' do
+        result
+        expect(ring.instance_variable_get(:@last)).to eq 0
+      end
+    end
+
+    context 'with a partially-filled array' do
+      before do
+        ring.instance_variable_set(:@arr, [1, 2, nil, 4])
+        ring.instance_variable_set(:@last, 3)
+      end
+
+      it 'removes the oldest space' do
+        expect(result).to eq(4)
+      end
+    end
+
+    context 'with a full array' do
+      before do
+        ring.instance_variable_set(:@arr, [1, 2, 3, 4])
+        ring.instance_variable_set(:@last, 2)
+      end
+
+      it 'removes the oldest space' do
+        expect(result).to eq(3)
+      end
+    end
+  end
 end
