@@ -1,5 +1,8 @@
-require_relative '../ring_buffer.rb'
+# frozen_string_literal: true
 
+require_relative '../ring_buffer'
+
+# rubocop:disable Metrics/BlockLength
 RSpec.describe RingBuffer do
   describe '.new' do
     subject(:result) { described_class.new(capacity: capacity) }
@@ -14,12 +17,12 @@ RSpec.describe RingBuffer do
       end
 
       it 'creates an empty array the with the same length as the given capacity' do
-        expect(result.instance_variable_get(:@arr)).to eq([nil, nil, nil, nil])
+        expect(result.instance_variable_get(:@arr)).to eq(Array.new(4))
       end
     end
 
     context 'with an invalid capacity' do
-      let(:capacity) {0}
+      let(:capacity) { 0 }
       it 'raises an ArgumentError' do
         expect { result }.to raise_error(ArgumentError)
       end
@@ -27,11 +30,11 @@ RSpec.describe RingBuffer do
   end
 
   describe '.push' do
-    subject(:result) { ring.push('A')}
+    subject(:result) { ring.push('A') }
 
-    let(:ring) { described_class.new(capacity: 4)}
+    let(:ring) { described_class.new(capacity: 4) }
 
-    it{ is_expected.to be_an(Array) }
+    it { is_expected.to be_an(Array) }
 
     it 'updates @arr' do
       result
@@ -55,7 +58,7 @@ RSpec.describe RingBuffer do
       end
 
       it 'fills the first empty space' do
-        expect(result).to eq([1, "A", 3, nil])
+        expect(result).to eq([1, 'A', 3, nil])
       end
     end
 
@@ -66,22 +69,19 @@ RSpec.describe RingBuffer do
       end
 
       it 'overwrites the oldest space' do
-        expect(result).to eq([4, "A", 2, 3])
+        expect(result).to eq([4, 'A', 2, 3])
       end
     end
   end
 
-
   describe '.pop' do
     subject(:result) { ring.pop }
 
-    let(:ring) { described_class.new(capacity: 4)}
+    let(:ring) { described_class.new(capacity: 4) }
 
     before do
       ring.instance_variable_set(:@arr, [1, 2, 3, 4])
     end
-
-    it{ is_expected.to be_an(Object) }
 
     it 'updates @arr' do
       result
@@ -90,7 +90,7 @@ RSpec.describe RingBuffer do
 
     context 'with an empty array' do
       before do
-        ring.instance_variable_set(:@arr, [nil, nil, nil, nil])
+        ring.instance_variable_set(:@arr, Array.new(4))
       end
 
       it 'returns nil' do
@@ -126,3 +126,4 @@ RSpec.describe RingBuffer do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
+# Challenge requirements:
 # initialize a ring buffer
 # implement puts(item)
 # implement pop
 
+# Creates a RingBuffer object
 class RingBuffer
   def initialize(capacity:)
     @arr = Array.new(capacity)
@@ -13,7 +17,7 @@ class RingBuffer
   end
 
   def push(item)
-    if has_nil?
+    if contains_nil?
       point = @arr.index(nil)
       point.nil? ? update_last : @next = point
     end
@@ -25,6 +29,7 @@ class RingBuffer
 
   def pop
     return nil if empty?
+
     popped = @arr[@last]
     @arr[@last] = nil
     update_last
@@ -37,7 +42,7 @@ class RingBuffer
     @arr.all?(&:nil?)
   end
 
-  def has_nil?
+  def contains_nil?
     @arr.index(nil)
   end
 
