@@ -15,10 +15,6 @@ RSpec.describe RingBuffer do
       it 'does not raise an exception' do
         expect { result }.to_not raise_error
       end
-
-      it 'creates an empty array the with the same length as the given capacity' do
-        expect(result.instance_variable_get(:@arr)).to eq(Array.new(4))
-      end
     end
 
     context 'with an invalid capacity' do
@@ -83,11 +79,6 @@ RSpec.describe RingBuffer do
       ring.instance_variable_set(:@arr, [1, 2, 3, 4])
     end
 
-    it 'updates @arr' do
-      result
-      expect(ring.instance_variable_get(:@arr)).to eq [nil, 2, 3, 4]
-    end
-
     context 'with an empty array' do
       before do
         ring.instance_variable_set(:@arr, Array.new(4))
@@ -95,11 +86,6 @@ RSpec.describe RingBuffer do
 
       it 'returns nil' do
         expect(result).to eq(nil)
-      end
-
-      it 'does not shift @last' do
-        result
-        expect(ring.instance_variable_get(:@last)).to eq 0
       end
     end
 
