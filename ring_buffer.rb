@@ -13,7 +13,7 @@ class RingBuffer
     @arr = Array.new(capacity)
     @capacity = capacity
     @next = 0
-    @last = 0
+    @oldest = 0
   end
 
   def push(item)

@@ -70,7 +70,7 @@ RSpec.describe RingBuffer do
     context 'with a partially-filled array' do
       before do
         build_ring_buffer_from_array([1, 2, nil, 4])
-        set_pointer(pointer: :@last, index: 3)
+        set_pointer(pointer: :@oldest, index: 3)
       end
 
       it 'removes the oldest space' do
@@ -81,7 +81,7 @@ RSpec.describe RingBuffer do
     context 'with a full array' do
       before do
         build_ring_buffer_from_array([1, 2, 3, 4])
-        set_pointer(pointer: :@last, index: 2)
+        set_pointer(pointer: :@oldest, index: 2)
       end
 
       it 'removes the oldest space' do
