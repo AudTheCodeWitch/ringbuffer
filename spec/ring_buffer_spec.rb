@@ -32,7 +32,7 @@ RSpec.describe RingBuffer do
 
     it { is_expected.to be_an(Array) }
 
-    it { is_expected.to eq(['A', nil, nil, nil])}
+    it { is_expected.to eq(['A', nil, nil, nil]) }
 
     context 'with a partially-filled array' do
       before do
@@ -89,7 +89,6 @@ RSpec.describe RingBuffer do
       end
     end
   end
-
 
   def build_ring_buffer_from_array(arr)
     ring.instance_variable_set(:@arr, arr)
